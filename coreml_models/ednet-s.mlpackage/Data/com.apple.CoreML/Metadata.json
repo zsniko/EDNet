@@ -1,0 +1,17 @@
+{
+  "MLModelVersionStringKey" : "1.0",
+  "MLModelDescriptionKey" : "Palettized EDNet-S",
+  "MLModelCreatorDefinedKey" : {
+    "stride" : "32",
+    "Confidence threshold" : "0.25",
+    "IoU threshold" : "0.45",
+    "docs" : "https:\/\/github.com\/zsniko\/EDNet",
+    "task" : "detect",
+    "imgsz" : "[640, 640]",
+    "date" : "2024-09-30T00:08:55.388672",
+    "batch" : "1",
+    "names" : "{0: 'pedestrian', 1: 'people', 2: 'bicycle', 3: 'car', 4: 'van', 5: 'truck', 6: 'tricycle', 7: 'awning-tricycle', 8: 'bus', 9: 'motor'}"
+  },
+  "MLModelAuthorKey" : "ViseForge",
+  "MLModelLicenseKey" : "AGPL-3.0 License "
+}
