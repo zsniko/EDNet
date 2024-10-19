@@ -1,0 +1,6 @@
+# Ignore Python cache directories
+__pycache__/
+*.py[cod]
+
+# Ignore macOS .DS_Store file
+.DS_Store
