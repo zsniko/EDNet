@@ -1,14 +1,14 @@
 # [EDNet: Edge-Optimized Small Target Detection in UAV Imagery](https://github.com/zsniko/EDNet)
 
-This repository contains the implementation of EDNet, an improved target detection framework for drones.
+This repository contains the implementation of EDNet, an improved target detection framework for edge computing on drones.
 <p align="center">
   <img src="images/benchmark.png" width=100%>
 </p>
 
 EDNet is an enhanced target detection framework based on improved YOLOv10, optimized for detecting tiny targets in drone imagery. Key innovations include:
 - **Cross Concat Strategy & XS Detection Head**: Improved fine-grained feature fusion and multi-scale context.
-- **C2f-FCAA Block**: Uniquely designed faster context anchor attention for better feature extraction with reduced computational complexity.
-- **WIoU Loss**: Enhanced bounding box regression.
+- **C2f-FCA Block**: Uniquely designed faster context anchor attention for better feature extraction with reduced computational complexity.
+- **WIoUv3 Loss**: Enhanced bounding box regression.
 
 EDNet is available in seven sizes, from Tiny to XL. It outperforms YOLOv10 variants at a larger size starting from the S variant, achieves up to a 5.6% gain in mAP@50 with significantly fewer parameters. With hardware acceleration, EDNet variants operate at speeds ranging from 16 to 55 FPS on an iPhone 12, providing a scalable and efficient solution for edge-based object detection in challenging drone imagery.
 
@@ -49,7 +49,7 @@ from ednet import EDNet
 # Build a model from scratch (choose from: t,n,s,m,b,l,x)
 model = EDNet("ednet-t.yaml") 
 # Train the model
-model.train(data="visdrone-det", epochs=200, imgsz=640)  
+model.train(data="visdrone-det.yaml", epochs=200, imgsz=640)  
 ```
 
 To validate a pre-trained model, use the `val` method. For predictions, simply provide the path to the image:
@@ -76,7 +76,7 @@ model.export(format='onnx')
 
 Mobile computing evaluation:
 <p align="center">
-  <img src="images/mobile_perf.png" width=100%>
+  <img src="images/mobile_perf.png" width=80%>
 </p>
 
 Sample predictions with EDNet model iOS deployment (a) EDNet-Tiny; (b) EDNet-B (red dotted boxes are manually added after predicted bounding boxes to highlight the difference in detection capabilities):
