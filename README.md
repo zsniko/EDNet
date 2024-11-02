@@ -7,7 +7,7 @@ This repository contains the implementation of EDNet, an improved target detecti
 
 EDNet is an enhanced target detection framework based on improved YOLOv10, optimized for detecting tiny targets in drone imagery. Key innovations include:
 - **Cross Concat Strategy & XS Detection Head**: Improved fine-grained feature fusion and multi-scale context.
-- **C2f-FCA Block**: Uniquely designed faster context anchor attention for better feature extraction with reduced computational complexity.
+- **C2f-FCA Block**: Uniquely designed faster context attention bottleneck for better feature extraction with reduced computational complexity.
 - **WIoUv3 Loss**: Enhanced bounding box regression.
 
 EDNet is available in seven sizes, from Tiny to XL. The package is built based on the Ultralytics package. It outperforms YOLOv10 variants at a larger size starting from the S variant, achieves up to a 5.6% gain in mAP@50 with significantly fewer parameters. For mobile computing, CoreML is utilized to interface the CPU and NPU. EDNet variants operate at speeds ranging from 16 to 55 FPS on an iPhone 12, providing a scalable and efficient solution for edge-based object detection in challenging drone imagery. 
