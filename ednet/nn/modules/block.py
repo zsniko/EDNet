@@ -934,13 +934,13 @@ class CAA(BaseModule):
         attn_factor = self.act(self.conv2(self.v_conv(self.h_conv(self.conv1(self.avg_pool(x))))))
         return attn_factor
 
-class Partial_conv3(nn.Module):
+class PConv3(nn.Module):
 
     def __init__(self, dim, n_div, forward):
         super().__init__()
         self.dim_conv3 = dim // n_div
         self.dim_untouched = dim - self.dim_conv3
-        self.partial_conv3 = nn.Conv2d(self.dim_conv3, self.dim_conv3, 3, 1, 1, bias=False)
+        self.PConv3 = nn.Conv2d(self.dim_conv3, self.dim_conv3, 3, 1, 1, bias=False)
 
         if forward == 'slicing':
             self.forward = self.forward_slicing
@@ -952,19 +952,19 @@ class Partial_conv3(nn.Module):
     def forward_slicing(self, x: Tensor) -> Tensor:
         # only for inference
         x = x.clone()   # !!! Keep the original input intact for the residual connection later
-        x[:, :self.dim_conv3, :, :] = self.partial_conv3(x[:, :self.dim_conv3, :, :])
+        x[:, :self.dim_conv3, :, :] = self.PConv3(x[:, :self.dim_conv3, :, :])
 
         return x
 
     def forward_split_cat(self, x: Tensor) -> Tensor:
         # for training/inference
         x1, x2 = torch.split(x, [self.dim_conv3, self.dim_untouched], dim=1)
-        x1 = self.partial_conv3(x1)
+        x1 = self.PConv3(x1)
         x = torch.cat((x1, x2), 1)
 
         return x
         
-class Faster_Block_CAA(nn.Module):
+class FCA(nn.Module):
     def __init__(self,
                  inc,
                  dim,
@@ -989,7 +989,7 @@ class Faster_Block_CAA(nn.Module):
 
         self.mlp = nn.Sequential(*mlp_layer)
 
-        self.spatial_mixing = Partial_conv3(
+        self.spatial_mixing = PConv3(
             dim,
             n_div,
             pconv_fw_type
@@ -1011,7 +1011,11 @@ class Faster_Block_CAA(nn.Module):
             x = self.adjust_channel(x)
         shortcut = x
         x = self.spatial_mixing(x)
-        x = shortcut + self.attention(self.drop_path(self.mlp(x)))
+        # x = shortcut + self.attention(self.drop_path(self.mlp(x)))
+
+        x = self.drop_path(self.mlp(x))
+        attn_factor = self.attention(x)
+        x = shortcut + x * attn_factor  
         return x
 
     def forward_layer_scale(self, x):
@@ -1020,7 +1024,7 @@ class Faster_Block_CAA(nn.Module):
         x = shortcut + self.drop_path(self.layer_scale.unsqueeze(-1).unsqueeze(-1) * self.mlp(x))
         return x
 
-class C2f_Faster_CAA(C2f):
+class C2f_FCA(C2f):
     def __init__(self, c1, c2, n=1, shortcut=False, g=1, e=0.5):
         super().__init__(c1, c2, n, shortcut, g, e)
-        self.m = nn.ModuleList(Faster_Block_CAA(self.c, self.c) for _ in range(n))
+        self.m = nn.ModuleList(FCA(self.c, self.c) for _ in range(n))

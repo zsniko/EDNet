@@ -31,7 +31,7 @@ from .block import (
     RepVGGDW,
     ResNetLayer,
     SCDown,
-    C2f_Faster_CAA,
+    C2f_FCA,
 )
 from .conv import (
     CBAM,
@@ -118,5 +118,5 @@ __all__ = (
     "Attention",
     "PSA",
     "SCDown",
-    "C2f_Faster_CAA",
+    "C2f_FCA",
 )

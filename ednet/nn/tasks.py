@@ -47,7 +47,7 @@ from ednet.nn.modules import (
     SCDown,
     Segment,
     v10Detect,
-    C2f_Faster_CAA,
+    C2f_FCA,
 )
 from ednet.utils import DEFAULT_CFG_DICT, DEFAULT_CFG_KEYS, LOGGER, colorstr, emojis, yaml_load
 from ednet.utils.checks import check_requirements, check_suffix, check_yaml
@@ -694,7 +694,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
             PSA,
             SCDown,
             C2fCIB,
-            C2f_Faster_CAA,
+            C2f_FCA,
         }:
             c1, c2 = ch[f], args[0]
             if c2 != nc:  # if c2 not equal to number of classes (i.e. for Classify() output)
@@ -706,7 +706,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
                 )  # num heads
 
             args = [c1, c2, *args[1:]]
-            if m in {BottleneckCSP, C1, C2, C2f, C2fAttn, C3, C3Ghost, C3x, RepC3, C2fCIB, C2f_Faster_CAA}:
+            if m in {BottleneckCSP, C1, C2, C2f, C2fAttn, C3, C3Ghost, C3x, RepC3, C2fCIB, C2f_FCA}:
                 args.insert(2, n)  # number of repeats
                 n = 1
         elif m in {HGStem, HGBlock}:
