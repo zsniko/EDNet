@@ -1,4 +1,4 @@
-# [EDNet: Edge-Optimized Small Target Detection in UAV Imagery](https://github.com/zsniko/EDNet)
+# [EDNet: Edge-Optimized Small Target Detection in UAV Imagery](https://arxiv.org/abs/2501.05885)
 
 This repository contains the implementation of EDNet, an improved target detection framework for edge computing on drones.
 <p align="center">
