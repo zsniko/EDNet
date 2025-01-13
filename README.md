@@ -85,6 +85,18 @@ Sample predictions with EDNet model iOS deployment (a) EDNet-Tiny; (b) EDNet-B (
   <img src="images/tiny_big.png" width=100%>
 </p>
 
+#### Citation
+
+```plaintext
+@misc{ednet2025,
+    title={EDNet: Edge-Optimized Small Target Detection in UAV Imagery -- Faster Context Attention, Better Feature Fusion, and Hardware Acceleration},
+    author={Zhifan Song and Yuan Zhang and Abd Al Rahman M. Abu Ebayyeh},
+    year={2025},
+    eprint={2501.05885},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
+```
 
 <br>
 <div align="center">
