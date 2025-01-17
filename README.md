@@ -43,7 +43,7 @@ pip install -r requirements.txt
 <details open>
 <summary>Usage</summary>
 
-EDNet can be called directly from the package. Use the `train` method to train the model:
+EDNet can be called directly from the package. Use the `train` method to train the model (please modify the content of visdrone-det.yaml to use the correct path to your dataset location):
 
 ```python
 from ednet import EDNet
@@ -60,7 +60,7 @@ from ednet import EDNet
 # Load a pretrained model (choose from: t,n,s,m,b,l,x)
 model = EDNet("pretrained/tiny.pt") 
 # Evaluate the model
-model.val(data="visdrone-det", split='val')  
+model.val(data="visdrone-det.yaml", split='val')  
 # Predict (change the path to your image)
 model('ednet/assets/test1.jpg')  
 ```
