@@ -16,3 +16,4 @@ onnx
 onnxruntime
 seaborn
 numpy<2.0
+py-cpuinfo
